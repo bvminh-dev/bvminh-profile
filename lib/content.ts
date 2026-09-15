@@ -1,13 +1,13 @@
 export const profile = {
-  name: "B. V. Minh",
+  name: "Bui Van Minh",
   handle: "bvminh",
   role: "Software Engineer",
   tagline: "Building things that work, and understanding why they do.",
   location: "Vietnam",
-  email: "hello@bvminh.is-a.dev",
+  email: "bvminh.dev@gmail.com",
   socials: [
     { label: "GitHub", href: "https://github.com/bvminh-dev" },
-    { label: "LinkedIn", href: "https://linkedin.com/in/bvminh" },
+    // { label: "LinkedIn", href: "https://linkedin.com/in/bvminh" },
   ],
 };
 
