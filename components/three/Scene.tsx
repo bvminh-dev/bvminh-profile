@@ -2,13 +2,32 @@
 
 import { Canvas, useFrame } from "@react-three/fiber";
 import { MeshDistortMaterial } from "@react-three/drei";
-import { useRef, useState } from "react";
+import { useRef, useState, useSyncExternalStore } from "react";
 import * as THREE from "three";
+import { getServerTheme, getTheme, subscribeTheme } from "@/lib/theme";
 
-const ACCENT = "#2563eb";
-const CORE = "#18181b";
+const THEME_STYLE = {
+  light: {
+    core: "#18181b",
+    accent: "#2563eb",
+    metalness: 0.1,
+    roughness: 0.35,
+    wireOpacity: 0.18,
+    emissive: 0,
+  },
+  dark: {
+    core: "#3f3f46",
+    accent: "#60a5fa",
+    metalness: 0.5,
+    roughness: 0.2,
+    wireOpacity: 0.4,
+    emissive: 0.6,
+  },
+};
 
-function Core({ reduceMotion }: { reduceMotion: boolean }) {
+type Style = (typeof THEME_STYLE)["light"];
+
+function Core({ reduceMotion, style }: { reduceMotion: boolean; style: Style }) {
   const group = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
   const pointer = useRef({ x: 0, y: 0 });
@@ -44,16 +63,18 @@ function Core({ reduceMotion }: { reduceMotion: boolean }) {
       <mesh>
         <icosahedronGeometry args={[1.4, 1]} />
         <MeshDistortMaterial
-          color={CORE}
+          color={style.core}
           distort={hovered ? 0.35 : 0.2}
           speed={reduceMotion ? 0 : 1.5}
-          roughness={0.35}
-          metalness={0.1}
+          roughness={style.roughness}
+          metalness={style.metalness}
+          emissive={style.accent}
+          emissiveIntensity={style.emissive * 0.3}
         />
       </mesh>
       <mesh>
         <icosahedronGeometry args={[1.42, 1]} />
-        <meshBasicMaterial color={ACCENT} wireframe transparent opacity={0.18} />
+        <meshBasicMaterial color={style.accent} wireframe transparent opacity={style.wireOpacity} />
       </mesh>
     </group>
   );
@@ -65,12 +86,14 @@ function Satellite({
   size,
   offset,
   reduceMotion,
+  style,
 }: {
   radius: number;
   speed: number;
   size: number;
   offset: number;
   reduceMotion: boolean;
+  style: Style;
 }) {
   const mesh = useRef<THREE.Mesh>(null);
 
@@ -87,12 +110,20 @@ function Satellite({
   return (
     <mesh ref={mesh}>
       <sphereGeometry args={[size, 16, 16]} />
-      <meshStandardMaterial color={ACCENT} roughness={0.4} />
+      <meshStandardMaterial
+        color={style.accent}
+        roughness={0.4}
+        emissive={style.accent}
+        emissiveIntensity={style.emissive}
+      />
     </mesh>
   );
 }
 
 export default function Scene({ reduceMotion = false }: { reduceMotion?: boolean }) {
+  const theme = useSyncExternalStore(subscribeTheme, getTheme, getServerTheme);
+  const style = THEME_STYLE[theme];
+
   return (
     <Canvas
       dpr={[1, 1.5]}
@@ -100,13 +131,13 @@ export default function Scene({ reduceMotion = false }: { reduceMotion?: boolean
       gl={{ antialias: true, alpha: true }}
       aria-hidden="true"
     >
-      <ambientLight intensity={0.6} />
+      <ambientLight intensity={theme === "dark" ? 0.4 : 0.6} />
       <directionalLight position={[3, 4, 2]} intensity={1.1} />
       <directionalLight position={[-3, -2, -2]} intensity={0.3} />
-      <Core reduceMotion={reduceMotion} />
-      <Satellite radius={2.3} speed={0.35} size={0.09} offset={0} reduceMotion={reduceMotion} />
-      <Satellite radius={2.6} speed={0.22} size={0.06} offset={2.1} reduceMotion={reduceMotion} />
-      <Satellite radius={2.1} speed={0.5} size={0.05} offset={4.4} reduceMotion={reduceMotion} />
+      <Core reduceMotion={reduceMotion} style={style} />
+      <Satellite radius={2.3} speed={0.35} size={0.09} offset={0} reduceMotion={reduceMotion} style={style} />
+      <Satellite radius={2.6} speed={0.22} size={0.06} offset={2.1} reduceMotion={reduceMotion} style={style} />
+      <Satellite radius={2.1} speed={0.5} size={0.05} offset={4.4} reduceMotion={reduceMotion} style={style} />
     </Canvas>
   );
 }

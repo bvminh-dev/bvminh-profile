@@ -11,20 +11,20 @@ Domain: `bvminh.is-a.dev` → Vercel project `minhs-projects-32c86aec/bvminh-pro
 
 ## Remaining steps
 
-- [ ] Wait for `is-a-dev/register` CI to pass on the PR (JSON/records/filename checks).
-- [ ] Wait for a maintainer to review and merge the PR. Community repo — can take from hours to
-      several days. Watch the PR for review comments and respond if changes are requested.
-- [ ] After merge: DNS needs to propagate (usually minutes, occasionally up to ~1h).
-- [ ] Confirm in Vercel Dashboard → `bvminh-profile` → Settings → Domains that `bvminh.is-a.dev`
-      shows **Valid Configuration**.
-- [ ] Load `https://bvminh.is-a.dev` directly and confirm it serves the site (not a 404 or SSL
-      warning — first HTTPS cert issuance can take a few minutes after DNS resolves).
-- [ ] Once confirmed working, double-check Vercel **Deployment Protection** is set the way you
-      want long-term (it was temporarily disabled to let the is-a.dev reviewer view the preview
-      URL during the PR — decide whether to keep it open or protect preview deployments only,
-      keeping Production public).
-- [ ] Update `metadataBase` in `app/layout.tsx` if the final canonical URL differs from
-      `https://bvminh.is-a.dev` (it currently assumes this domain).
+- [x] Wait for `is-a-dev/register` CI to pass on the PR (JSON/records/filename checks).
+- [x] Wait for a maintainer to review and merge the PR — merged.
+- [x] After merge: DNS needs to propagate — confirmed via `dig`, A record and TXT record both
+      resolve correctly.
+- [x] Load `https://bvminh.is-a.dev` directly and confirm it serves the site — `curl` returns
+      HTTP 200 with a valid TLS cert. (Vercel dashboard may still show "Proxy Status Unknown" —
+      that's a UI check unrelated to whether the site actually serves; ignore it if the curl
+      check above passes.)
+- [x] Double-check Vercel **Deployment Protection** is set the way you want long-term — set to
+      require Vercel Authentication for preview deployments; Production confirmed still public
+      (`curl` returns HTTP 200, no auth wall).
+- [x] Update `metadataBase` in `app/layout.tsx` if the final canonical URL differs from
+      `https://bvminh.is-a.dev` — already set to `https://bvminh.is-a.dev`, matches the final
+      domain, no change needed.
 
 ## If the PR is rejected or changes are requested
 

@@ -17,7 +17,7 @@ export default function Home() {
         <Contact />
       </main>
       <footer className="border-t border-border px-6 py-8 text-center text-sm text-muted-foreground">
-        © {new Date().getFullYear()} bvminh. Built with Next.js.
+        © {new Date().getFullYear()} bvminh with love.
       </footer>
     </div>
   );

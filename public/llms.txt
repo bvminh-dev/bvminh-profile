@@ -1,0 +1,17 @@
+# Bui Van Minh (bvminh)
+
+> Personal portfolio of Bui Van Minh (bvminh), a Software Engineer based in Vietnam.
+
+## About
+
+- Role: Software Engineer
+- Tagline: Building things that work, and understanding why they do.
+- Location: Vietnam
+- GitHub: https://github.com/bvminh-dev
+
+## Sections
+
+- [About](https://bvminh.is-a.dev/#about)
+- [Skills](https://bvminh.is-a.dev/#skills)
+- [Projects](https://bvminh.is-a.dev/#projects)
+- [Contact](https://bvminh.is-a.dev/#contact)

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { nav, profile } from "@/lib/content";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export function Nav() {
   return (
@@ -11,17 +12,20 @@ export function Nav() {
         >
           {profile.handle}
         </Link>
-        <nav className="flex gap-6">
-          {nav.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="cursor-pointer text-sm font-medium text-muted-foreground transition-colors duration-200 hover:text-foreground"
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
+        <div className="flex items-center gap-6">
+          <nav className="flex gap-6">
+            {nav.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="cursor-pointer text-sm font-medium text-muted-foreground transition-colors duration-200 hover:text-foreground"
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   );

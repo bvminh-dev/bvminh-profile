@@ -5,6 +5,7 @@ export const profile = {
   tagline: "Building things that work, and understanding why they do.",
   location: "Vietnam",
   email: "bvminh.dev@gmail.com",
+  url: "https://bvminh.is-a.dev",
   socials: [
     { label: "GitHub", href: "https://github.com/bvminh-dev" },
     // { label: "LinkedIn", href: "https://linkedin.com/in/bvminh" },

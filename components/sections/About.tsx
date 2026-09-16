@@ -1,5 +1,6 @@
+import Image from "next/image";
 import { Reveal } from "@/components/motion/Reveal";
-import { about } from "@/lib/content";
+import { about, profile } from "@/lib/content";
 
 export function About() {
   return (
@@ -9,12 +10,24 @@ export function About() {
           {about.heading}
         </h2>
       </Reveal>
-      <div className="mt-8 flex max-w-2xl flex-col gap-4">
-        {about.paragraphs.map((paragraph, index) => (
-          <Reveal key={paragraph} delay={0.08 * (index + 1)}>
-            <p className="text-lg leading-relaxed text-muted-foreground">{paragraph}</p>
-          </Reveal>
-        ))}
+      <div className="mt-8 flex flex-col gap-8 sm:flex-row sm:items-start">
+        <Reveal className="shrink-0">
+          <Image
+            src="/images/avatar.JPG"
+            alt={profile.name}
+            width={160}
+            height={160}
+            className="h-40 w-40 rounded-full border border-border object-cover"
+            priority
+          />
+        </Reveal>
+        <div className="flex max-w-2xl flex-col gap-4">
+          {about.paragraphs.map((paragraph, index) => (
+            <Reveal key={paragraph} delay={0.08 * (index + 1)}>
+              <p className="text-lg leading-relaxed text-muted-foreground">{paragraph}</p>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );
