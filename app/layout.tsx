@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   creator: profile.name,
   alternates: { canonical: "/" },
   openGraph: {
-    type: "profile",
+    type: "website",
     url: profile.url,
     siteName: title,
     title,
